@@ -146,7 +146,7 @@
 
 - (NSArray *)matchData:(NSString *)data withPattern:(NSString *)pattern error:(NSError **)error {
     NSMutableArray *array = nil;
-    *error = nil;
+
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:error];
     NSTextCheckingResult *match = [regex firstMatchInString:data options:0 range:NSMakeRange(0, [data length])];
 
