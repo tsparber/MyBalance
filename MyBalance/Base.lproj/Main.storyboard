@@ -90,7 +90,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="MyBalance" id="Zq2-3x-lO9">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="L7n-oH-DhF"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="L7n-oH-DhF">
+                            <connections>
+                                <action selector="refresh:" destination="BYZ-38-t0r" id="h9M-z0-lmy"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bonusWeekendDataLabel" destination="FTG-qA-RxP" id="eRd-Mx-K5R"/>
