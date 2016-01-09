@@ -17,6 +17,7 @@
 		6577915A1C40DC87006FD0E9 /* MyBalanceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791591C40DC87006FD0E9 /* MyBalanceUITests.m */; };
 		657791691C40EAE1006FD0E9 /* DataLoaderBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */; };
 		6577916C1C40EBFC006FD0E9 /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577916B1C40EBFC006FD0E9 /* DataLoader.m */; };
+		6577916E1C413A41006FD0E9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6577916D1C413A41006FD0E9 /* SafariServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoaderBoost.m; sourceTree = "<group>"; };
 		6577916A1C40EBFC006FD0E9 /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
 		6577916B1C40EBFC006FD0E9 /* DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoader.m; sourceTree = "<group>"; };
+		6577916D1C413A41006FD0E9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6577916E1C413A41006FD0E9 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +90,7 @@
 		657791281C40DC87006FD0E9 = {
 			isa = PBXGroup;
 			children = (
+				6577916D1C413A41006FD0E9 /* SafariServices.framework */,
 				657791331C40DC87006FD0E9 /* MyBalance */,
 				6577914D1C40DC87006FD0E9 /* MyBalanceTests */,
 				657791581C40DC87006FD0E9 /* MyBalanceUITests */,

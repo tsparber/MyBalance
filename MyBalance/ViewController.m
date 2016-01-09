@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "DataLoaderBoost.h"
 
+@import SafariServices;
+
 @interface ViewController () <DataLoaderDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
@@ -52,6 +54,13 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.dataLoader refresh];
     self.refreshButton.enabled = NO;
+}
+
+- (IBAction)showHomepage:(id)sender {
+    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://care.boost.com.au"]];
+    safariViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    safariViewController.modalTransitionStyle =UIModalTransitionStyleCoverVertical;
+    [self presentViewController:safariViewController animated:YES completion:nil];
 }
 
 - (void) setEnabled:(BOOL)state {
