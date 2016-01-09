@@ -9,7 +9,15 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *includedDataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bonusWeekendDataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *expiresLabel;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *includedDataProgress;
+@property (weak, nonatomic) IBOutlet UIProgressView *bonusWeekendDataProgress;
+@property (weak, nonatomic) IBOutlet UIProgressView *expiresProgress;
 @end
 
 @implementation ViewController

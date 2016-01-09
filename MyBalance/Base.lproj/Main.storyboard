@@ -92,6 +92,15 @@
                     <navigationItem key="navigationItem" title="MyBalance" id="Zq2-3x-lO9">
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="L7n-oH-DhF"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="bonusWeekendDataLabel" destination="FTG-qA-RxP" id="eRd-Mx-K5R"/>
+                        <outlet property="bonusWeekendDataProgress" destination="8Xb-YA-Gwe" id="haH-wQ-2rj"/>
+                        <outlet property="expiresLabel" destination="aiK-n1-8xw" id="Ljd-PY-HPz"/>
+                        <outlet property="expiresProgress" destination="ZC1-2z-dFG" id="wdV-fB-BHq"/>
+                        <outlet property="includedDataLabel" destination="kGE-oB-2tK" id="Rhd-3O-OOx"/>
+                        <outlet property="includedDataProgress" destination="Elh-73-xbx" id="2OY-QT-Idf"/>
+                        <outlet property="refreshButton" destination="L7n-oH-DhF" id="yXp-h0-6AJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
