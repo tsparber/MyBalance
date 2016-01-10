@@ -89,19 +89,19 @@
         }
     }
 
-    pattern = @"<div class=\"container-row\">.*<p>Inc Data</p>.*<p>([0-9.]+)([A-Z]+) Expires ([0-9/ :]+)</p>.*</div>";
+    pattern = @"<div class=\"container-row\">.*<p>Inc Data</p>.*<p>([0-9.,]+)([A-Z]+) Expires ([0-9/ :]+)</p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
     if ([matches count] == 3) {
-        NSString *value = [matches objectAtIndex:0];
+        NSString *value = [[matches objectAtIndex:0] stringByReplacingOccurrencesOfString:@"," withString:@""];
         NSString *unit = [matches objectAtIndex:1];
 
         float valueFloat = [value floatValue];
         if ([unit isEqualToString:@"GB"]) {
-            valueFloat *= 1000;
+            valueFloat *= 1024;
         }
 
-        self.includedData = [NSString stringWithFormat:@"%@ %@ / %d GB", value, unit, (int)(maxIncludedData/1000)];
+        self.includedData = [NSString stringWithFormat:@"%d%@ / %dGB", (int)[value integerValue] , unit, (int)(maxIncludedData/1000)];
         self.percentIncluded = valueFloat / maxIncludedData;
 
         NSString *expiry = [matches objectAtIndex:2];
@@ -113,22 +113,21 @@
         NSTimeInterval timeFromNow = [date timeIntervalSinceNow];
         float daysFromNow = timeFromNow / 60 / 60 / 24;
 
-        NSString *dateFormatted = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
-        self.expires = [NSString stringWithFormat:@"%d d - %@", (int)daysFromNow, dateFormatted];
+        self.expires = [NSString stringWithFormat:@"%dd / %dd", (int)daysFromNow, (int)maxExpiry];
         self.percentExpires = daysFromNow / maxExpiry;
     } else {
-        self.includedData = @"?";
+        self.includedData = @"";
         self.percentIncluded = 0;
 
-        self.expires = @"?";
+        self.expires = @"";
         self.percentExpires = 0;
     }
 
-    pattern = @"<div class=\"container-row\">.*<p>Bonus Weekend Data</p>.*<p>([0-9.]+)([A-Z]+)  </p>.*</div>";
+    pattern = @"<div class=\"container-row\">.*<p>Bonus Weekend Data</p>.*<p>([0-9.,]+)([A-Z]+)  </p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
     if ([matches count] == 2) {
-        NSString *value = [matches objectAtIndex:0];
+        NSString *value = [[matches objectAtIndex:0] stringByReplacingOccurrencesOfString:@"," withString:@""];
         NSString *unit = [matches objectAtIndex:1];
 
         float valueFloat = [value floatValue];
@@ -136,10 +135,10 @@
             valueFloat *= 1000;
         }
 
-        self.bonusWeekendData = [NSString stringWithFormat:@"%@ %@ / %d GB", value, unit, (int)(maxBonusWeekendData/1000)];
+        self.bonusWeekendData = [NSString stringWithFormat:@"%d%@ / %dGB", (int)[value integerValue] , unit, (int)(maxBonusWeekendData/1000)];;
         self.percentBonusWeekendData = valueFloat / maxBonusWeekendData;
     } else {
-        self.bonusWeekendData = @"?";
+        self.bonusWeekendData = @"";
         self.percentBonusWeekendData = 0;
     }
 }
