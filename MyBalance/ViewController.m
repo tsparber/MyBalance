@@ -58,7 +58,15 @@
 }
 
 - (IBAction)showHomepage:(id)sender {
-    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://care.boost.com.au"]];
+    [self showURL:@"http://care.boost.com.au"];
+}
+
+- (IBAction)showGithub:(id)sender {
+    [self showURL:@"https://github.com/tsparber/MyBalance"];
+}
+
+- (void)showURL:(NSString *)url {
+    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
     safariViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     safariViewController.modalTransitionStyle =UIModalTransitionStyleCoverVertical;
     [self presentViewController:safariViewController animated:YES completion:nil];
