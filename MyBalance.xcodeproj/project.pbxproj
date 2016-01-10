@@ -22,6 +22,8 @@
 		6577917A1C41E1ED006FD0E9 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791791C41E1ED006FD0E9 /* TodayViewController.m */; };
 		6577917D1C41E1ED006FD0E9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6577917B1C41E1ED006FD0E9 /* MainInterface.storyboard */; };
 		657791811C41E1ED006FD0E9 /* MyBalanceWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 657791731C41E1ED006FD0E9 /* MyBalanceWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		657791861C426B15006FD0E9 /* DataLoaderBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */; };
+		657791871C426B36006FD0E9 /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577916B1C40EBFC006FD0E9 /* DataLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +131,6 @@
 		657791281C40DC87006FD0E9 = {
 			isa = PBXGroup;
 			children = (
-				6577916D1C413A41006FD0E9 /* SafariServices.framework */,
 				657791331C40DC87006FD0E9 /* MyBalance */,
 				6577914D1C40DC87006FD0E9 /* MyBalanceTests */,
 				657791581C40DC87006FD0E9 /* MyBalanceUITests */,
@@ -200,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				657791751C41E1ED006FD0E9 /* NotificationCenter.framework */,
+				6577916D1C413A41006FD0E9 /* SafariServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -406,6 +408,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				657791871C426B36006FD0E9 /* DataLoader.m in Sources */,
+				657791861C426B15006FD0E9 /* DataLoaderBoost.m in Sources */,
 				6577917A1C41E1ED006FD0E9 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,6 +628,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MyBalanceWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.sparber.MyBalance.MyBalanceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -637,6 +642,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MyBalanceWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.sparber.MyBalance.MyBalanceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
