@@ -13,6 +13,7 @@
 @interface DataLoaderBoost() <NSURLSessionDownloadDelegate>
 @property (strong, nonatomic) NSURLSessionConfiguration * urlSessionConfiguration;
 @property (strong, nonatomic) NSURLSession *urlSession;
+@property (strong, nonatomic) NSError *error;
 @end
 
 @implementation DataLoaderBoost
@@ -54,6 +55,9 @@
     if (error) {
         NSLog(@"did complete with error: %@", error);
         [self parseData:@""];
+    } else {
+        error = self.error;
+        self.error = nil;
     }
 
     if (self.delegate) {
@@ -140,6 +144,17 @@
     } else {
         self.bonusWeekendData = @"";
         self.percentBonusWeekendData = 0;
+    }
+
+    pattern = @"<p><h2>Error</h2></p><p>(.*)</p>.*<p>([^<]+)</p>";
+    matches = [self matchData:data withPattern:pattern error:&error];
+
+    if ([matches count] == 2) {
+        NSString *errorString = [NSString stringWithFormat:@"%@!\n\n%@", [matches objectAtIndex:0], [matches objectAtIndex:1]];
+        self.error = [NSError errorWithDomain:@"MyBalance" code:100 userInfo:@{NSLocalizedDescriptionKey:errorString}];
+    }
+    else {
+        self.error = error;
     }
 }
 
