@@ -14,7 +14,6 @@
 		657791411C40DC87006FD0E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 657791401C40DC87006FD0E9 /* Assets.xcassets */; };
 		657791441C40DC87006FD0E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 657791421C40DC87006FD0E9 /* LaunchScreen.storyboard */; };
 		6577914F1C40DC87006FD0E9 /* MyBalanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577914E1C40DC87006FD0E9 /* MyBalanceTests.m */; };
-		6577915A1C40DC87006FD0E9 /* MyBalanceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791591C40DC87006FD0E9 /* MyBalanceUITests.m */; };
 		657791691C40EAE1006FD0E9 /* DataLoaderBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */; };
 		6577916C1C40EBFC006FD0E9 /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577916B1C40EBFC006FD0E9 /* DataLoader.m */; };
 		6577916E1C413A41006FD0E9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6577916D1C413A41006FD0E9 /* SafariServices.framework */; };
@@ -79,8 +78,6 @@
 		6577914E1C40DC87006FD0E9 /* MyBalanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBalanceTests.m; sourceTree = "<group>"; };
 		657791501C40DC87006FD0E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		657791551C40DC87006FD0E9 /* MyBalanceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBalanceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		657791591C40DC87006FD0E9 /* MyBalanceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBalanceUITests.m; sourceTree = "<group>"; };
-		6577915B1C40DC87006FD0E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		657791671C40EAE1006FD0E9 /* DataLoaderBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoaderBoost.h; sourceTree = "<group>"; };
 		657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoaderBoost.m; sourceTree = "<group>"; };
 		6577916A1C40EBFC006FD0E9 /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
@@ -133,7 +130,6 @@
 			children = (
 				657791331C40DC87006FD0E9 /* MyBalance */,
 				6577914D1C40DC87006FD0E9 /* MyBalanceTests */,
-				657791581C40DC87006FD0E9 /* MyBalanceUITests */,
 				657791771C41E1ED006FD0E9 /* MyBalanceWidget */,
 				657791741C41E1ED006FD0E9 /* Frameworks */,
 				657791321C40DC87006FD0E9 /* Products */,
@@ -186,15 +182,6 @@
 				657791501C40DC87006FD0E9 /* Info.plist */,
 			);
 			path = MyBalanceTests;
-			sourceTree = "<group>";
-		};
-		657791581C40DC87006FD0E9 /* MyBalanceUITests */ = {
-			isa = PBXGroup;
-			children = (
-				657791591C40DC87006FD0E9 /* MyBalanceUITests.m */,
-				6577915B1C40DC87006FD0E9 /* Info.plist */,
-			);
-			path = MyBalanceUITests;
 			sourceTree = "<group>";
 		};
 		657791741C41E1ED006FD0E9 /* Frameworks */ = {
@@ -400,7 +387,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6577915A1C40DC87006FD0E9 /* MyBalanceUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +682,7 @@
 				657791841C41E1ED006FD0E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

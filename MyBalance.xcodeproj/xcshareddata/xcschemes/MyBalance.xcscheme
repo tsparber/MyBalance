@@ -38,16 +38,6 @@
                ReferencedContainer = "container:MyBalance.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "657791541C40DC87006FD0E9"
-               BuildableName = "MyBalanceUITests.xctest"
-               BlueprintName = "MyBalanceUITests"
-               ReferencedContainer = "container:MyBalance.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
