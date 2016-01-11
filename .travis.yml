@@ -1,0 +1,9 @@
+language: objective-c
+osx_image: xcode7.2
+
+xcode_project: MyBalance.xcodeproj
+xcode_scheme: MyBalance
+xcode_sdk: iphonesimulator9.2
+
+notifications:
+  email: false

@@ -1,4 +1,6 @@
 # MyBalance
+[![Build Status](https://travis-ci.org/tsparber/MyBalance.svg)](https://travis-ci.org/tsparber/MyBalance)
+
 Show current balance of your mobile plan on your iOS device as an app and a widget.
 
 Currently supported:
