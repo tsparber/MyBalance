@@ -154,7 +154,7 @@
 
         for (NSUInteger i = 1; i < match.numberOfRanges; i++) {
             NSString *group = [data substringWithRange:[match rangeAtIndex:i]];
-            NSLog(@"Match %lu: %@", i, group);
+            NSLog(@"Match %u: %@", (int)i, group);
             [array addObject:group];
         }
     }
