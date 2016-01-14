@@ -69,6 +69,7 @@
     SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
     safariViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     safariViewController.modalTransitionStyle =UIModalTransitionStyleCoverVertical;
+    safariViewController.view.tintColor = self.view.tintColor;
     [self presentViewController:safariViewController animated:YES completion:nil];
 }
 
