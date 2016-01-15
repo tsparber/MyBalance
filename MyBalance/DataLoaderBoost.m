@@ -117,7 +117,7 @@
         NSTimeInterval timeFromNow = [date timeIntervalSinceNow];
         float daysFromNow = timeFromNow / 60 / 60 / 24;
 
-        self.expires = [NSString stringWithFormat:@"%dd / %dd", (int)daysFromNow, (int)maxExpiry];
+        self.expires = [NSString stringWithFormat:@"%.1fd / %dd", daysFromNow, (int)maxExpiry];
         self.percentExpires = daysFromNow / maxExpiry;
     } else {
         self.includedData = @"";
