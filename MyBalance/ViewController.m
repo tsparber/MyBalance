@@ -7,20 +7,15 @@
 //
 
 #import "ViewController.h"
+#import "GaugeTableViewCell.h"
 #import "DataLoaderBoost.h"
 
 @import SafariServices;
 
-@interface ViewController () <DataLoaderDelegate>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, DataLoaderDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
-@property (weak, nonatomic) IBOutlet UILabel *includedDataLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bonusWeekendDataLabel;
-@property (weak, nonatomic) IBOutlet UILabel *expiresLabel;
-
-@property (weak, nonatomic) IBOutlet UIProgressView *includedDataProgress;
-@property (weak, nonatomic) IBOutlet UIProgressView *bonusWeekendDataProgress;
-@property (weak, nonatomic) IBOutlet UIProgressView *expiresProgress;
+@property (weak, nonatomic) IBOutlet UITableView *table;
 
 @property (strong, nonatomic) DataLoaderBoost *dataLoader;
 @end
@@ -40,10 +35,8 @@
     self.dataLoader = [[DataLoaderBoost alloc] init];
     self.dataLoader.delegate = self;
 
-    [self.includedDataLabel setText:@"?"];
-    [self.bonusWeekendDataLabel setText:@"?"];
-    [self.expiresLabel setText:@"?"];
-    [self setEnabled:NO];
+    self.table.delegate = self;
+    self.table.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,36 +66,51 @@
     [self presentViewController:safariViewController animated:YES completion:nil];
 }
 
-- (void) setEnabled:(BOOL)state {
-    for (UIView *view in self.view.subviews) {
-        if ([view isKindOfClass:[UILabel class]]) {
-            UILabel *label = (UILabel *)view;
-            [label setEnabled:state];
+#pragma mark - Table View
 
-        } else if ([view isKindOfClass:[UIProgressView class]]) {
-            UIProgressView *progressView = (UIProgressView *)view;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
-            if (!state) {
-                [progressView setProgress:1];
-            }
-        }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    GaugeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gaugeCell" forIndexPath:indexPath];
+
+    switch (indexPath.row) {
+        case 0:
+            cell.label.text = @"Included Data";
+            cell.value.text = self.dataLoader.includedData;
+            [cell.gauge setProgress:self.dataLoader.percentIncluded animated:YES];
+            break;
+
+        case 1:
+            cell.label.text = @"Bonus Weekend Data";
+            cell.value.text = self.dataLoader.bonusWeekendData;
+            [cell.gauge setProgress:self.dataLoader.percentBonusWeekendData animated:YES];
+            break;
+
+        case 2:
+            cell.label.text = @"Expires";
+            cell.value.text = self.dataLoader.expires;
+            [cell.gauge setProgress:self.dataLoader.percentExpires animated:YES];
+            break;
+
+        default:
+            break;
     }
+
+    return cell;
 }
 
 #pragma mark DataLoader
+
 - (void)dataDidChange:(DataLoader *)dataLoader withError:(NSError *)error {
     NSLog(@"dataDidChange");
 
-    [self setEnabled:YES];
-
-    self.includedDataLabel.text = self.dataLoader.includedData;
-    [self.includedDataProgress setProgress:self.dataLoader.percentIncluded animated:YES];
-
-    self.bonusWeekendDataLabel.text = self.dataLoader.bonusWeekendData;
-    [self.bonusWeekendDataProgress setProgress:self.dataLoader.percentBonusWeekendData animated:YES];
-
-    self.expiresLabel.text = self.dataLoader.expires;
-    [self.expiresProgress setProgress:self.dataLoader.percentExpires animated:YES];
+    [self.table reloadData];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.refreshButton.enabled = YES;

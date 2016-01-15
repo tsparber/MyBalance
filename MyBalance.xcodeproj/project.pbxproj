@@ -23,6 +23,7 @@
 		657791811C41E1ED006FD0E9 /* MyBalanceWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 657791731C41E1ED006FD0E9 /* MyBalanceWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		657791861C426B15006FD0E9 /* DataLoaderBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */; };
 		657791871C426B36006FD0E9 /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577916B1C40EBFC006FD0E9 /* DataLoader.m */; };
+		658041951C47C1D40089A8CF /* GaugeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 658041941C47C1D40089A8CF /* GaugeTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		657791791C41E1ED006FD0E9 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		6577917C1C41E1ED006FD0E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		6577917E1C41E1ED006FD0E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		658041931C47C1D40089A8CF /* GaugeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugeTableViewCell.h; sourceTree = "<group>"; };
+		658041941C47C1D40089A8CF /* GaugeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugeTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,8 @@
 				6577913A1C40DC87006FD0E9 /* ViewController.h */,
 				6577913B1C40DC87006FD0E9 /* ViewController.m */,
 				6577913D1C40DC87006FD0E9 /* Main.storyboard */,
+				658041931C47C1D40089A8CF /* GaugeTableViewCell.h */,
+				658041941C47C1D40089A8CF /* GaugeTableViewCell.m */,
 				6577916A1C40EBFC006FD0E9 /* DataLoader.h */,
 				6577916B1C40EBFC006FD0E9 /* DataLoader.m */,
 				657791671C40EAE1006FD0E9 /* DataLoaderBoost.h */,
@@ -372,6 +377,7 @@
 				657791391C40DC87006FD0E9 /* AppDelegate.m in Sources */,
 				657791361C40DC87006FD0E9 /* main.m in Sources */,
 				6577916C1C40EBFC006FD0E9 /* DataLoader.m in Sources */,
+				658041951C47C1D40089A8CF /* GaugeTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
