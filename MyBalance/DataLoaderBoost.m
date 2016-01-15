@@ -101,11 +101,15 @@
         NSString *unit = [matches objectAtIndex:1];
 
         float valueFloat = [value floatValue];
+        NSString *valueString = [NSString stringWithFormat:@"%d", (int)[value integerValue]];
         if ([unit isEqualToString:@"GB"]) {
+            if (((int)(valueFloat * 1000)) % 1000 != 0) {
+                valueString = [NSString stringWithFormat:@"%.3f", valueFloat];
+            }
             valueFloat *= 1024;
         }
 
-        self.includedData = [NSString stringWithFormat:@"%d%@ / %dGB", (int)[value integerValue] , unit, (int)(maxIncludedData/1000)];
+        self.includedData = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxIncludedData/1000)];
         self.percentIncluded = valueFloat / maxIncludedData;
 
         NSString *expiry = [matches objectAtIndex:2];
@@ -135,11 +139,15 @@
         NSString *unit = [matches objectAtIndex:1];
 
         float valueFloat = [value floatValue];
+        NSString *valueString = [NSString stringWithFormat:@"%d", (int)[value integerValue]];
         if ([unit isEqualToString:@"GB"]) {
-            valueFloat *= 1000;
+            if (((int)(valueFloat * 1000)) % 1000 != 0) {
+                valueString = [NSString stringWithFormat:@"%.3f", valueFloat];
+            }
+            valueFloat *= 1024;
         }
 
-        self.bonusWeekendData = [NSString stringWithFormat:@"%d%@ / %dGB", (int)[value integerValue] , unit, (int)(maxBonusWeekendData/1000)];;
+        self.bonusWeekendData = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxBonusWeekendData/1000)];
         self.percentBonusWeekendData = valueFloat / maxBonusWeekendData;
     } else {
         self.bonusWeekendData = @"";
