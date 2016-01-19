@@ -80,6 +80,7 @@
     NSInteger maxIncludedData = 1000;
     NSInteger maxBonusWeekendData = 500;
     NSInteger maxExpiry = 30;
+    NSString *planExpiry = @"";
 
     // Match error
     pattern = @"<p><h2>Error</h2></p><p>(.*)</p>.*<p>([^<]+)</p>";
@@ -115,6 +116,7 @@
 
         GaugeData *gaugeData = [self parseExpiry:[matches objectAtIndex:1] maxExpiry:maxExpiry];
         gaugeData.label = [NSString stringWithFormat:@"%@%@ - Expires", plan, trademark];
+        planExpiry = gaugeData.value;
         [self.data addObject:gaugeData];
         self.importantData = gaugeData;
     } else {
@@ -148,7 +150,9 @@
 
         gaugeData = [self parseExpiry:[matches objectAtIndex:2] maxExpiry:maxExpiry];
         gaugeData.label = @"Included Data - Expires";
-        [self.data addObject:gaugeData];
+        if (![gaugeData.value isEqualToString:planExpiry]) {
+            [self.data addObject:gaugeData];
+        }
     }
 
     // Match bonus weekend data
