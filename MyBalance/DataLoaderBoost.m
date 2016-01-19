@@ -79,7 +79,7 @@
     NSString *pattern = @"<div class=\"container-row\">.*<p>([A-Z]+)<sup>&reg;</sup></p>.*<p> Expires ([0-9/ :]+)</p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
-    if ([matches count]) {
+    if ([matches count] == 2) {
         plan = [matches objectAtIndex:0];
 
         if ([plan isEqualToString:@"UNLTD"]) {
@@ -91,6 +91,21 @@
         } else {
             NSLog(@"Plan: %@ unknown!", plan);
         }
+
+        NSString *expiry = [matches objectAtIndex:1];
+
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+
+        NSDate *date = [format dateFromString:expiry];
+        NSTimeInterval timeFromNow = [date timeIntervalSinceNow];
+        float daysFromNow = (float)timeFromNow / 60 / 60 / 24;
+
+        self.expires = [NSString stringWithFormat:@"%.1fd / %dd", daysFromNow, (int)maxExpiry];
+        self.percentExpires = daysFromNow / maxExpiry;
+    } else {
+        self.expires = @"";
+        self.percentExpires = 0;
     }
 
     pattern = @"<div class=\"container-row\">.*<p>Inc Data</p>.*<p>([0-9.,]+)([A-Z]+) Expires ([0-9/ :]+)</p>.*</div>";
@@ -111,24 +126,9 @@
 
         self.includedData = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxIncludedData/1000)];
         self.percentIncluded = valueFloat / maxIncludedData;
-
-        NSString *expiry = [matches objectAtIndex:2];
-
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
-
-        NSDate *date = [format dateFromString:expiry];
-        NSTimeInterval timeFromNow = [date timeIntervalSinceNow];
-        float daysFromNow = timeFromNow / 60 / 60 / 24;
-
-        self.expires = [NSString stringWithFormat:@"%.1fd / %dd", daysFromNow, (int)maxExpiry];
-        self.percentExpires = daysFromNow / maxExpiry;
     } else {
         self.includedData = @"";
         self.percentIncluded = 0;
-
-        self.expires = @"";
-        self.percentExpires = 0;
     }
 
     pattern = @"<div class=\"container-row\">.*<p>Bonus Weekend Data</p>.*<p>([0-9.,]+)([A-Z]+)  </p>.*</div>";
