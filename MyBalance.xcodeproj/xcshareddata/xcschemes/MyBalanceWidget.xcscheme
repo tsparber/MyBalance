@@ -15,20 +15,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "657791721C41E1ED006FD0E9"
-               BuildableName = "MyBalanceWidget.appex"
-               BlueprintName = "MyBalanceWidget"
-               ReferencedContainer = "container:MyBalance.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "657791301C40DC87006FD0E9"
                BuildableName = "MyBalance.app"
                BlueprintName = "MyBalance"
@@ -47,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "657791721C41E1ED006FD0E9"
-            BuildableName = "MyBalanceWidget.appex"
-            BlueprintName = "MyBalanceWidget"
+            BlueprintIdentifier = "657791301C40DC87006FD0E9"
+            BuildableName = "MyBalance.app"
+            BlueprintName = "MyBalance"
             ReferencedContainer = "container:MyBalance.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
