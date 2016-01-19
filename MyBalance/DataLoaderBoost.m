@@ -170,7 +170,7 @@
     NSMutableArray *array = nil;
 
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:error];
-    NSTextCheckingResult *match = [regex firstMatchInString:data options:0 range:NSMakeRange(0, [data length])];
+    NSTextCheckingResult *match = [regex firstMatchInString:data options:NSMatchingReportCompletion range:NSMakeRange(0, [data length])];
 
     if (match && !*error) {
         array = [[NSMutableArray alloc] initWithCapacity:match.numberOfRanges-1];
