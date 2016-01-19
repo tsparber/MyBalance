@@ -11,11 +11,4 @@
 
 @interface DataLoaderBoost : DataLoader
 
-@property (strong, nonatomic) NSString *expires;
-@property (strong, nonatomic) NSString *includedData;
-@property (strong, nonatomic) NSString *bonusWeekendData;
-@property (nonatomic) float percentExpires;
-@property (nonatomic) float percentIncluded;
-@property (nonatomic) float percentBonusWeekendData;
-
 @end

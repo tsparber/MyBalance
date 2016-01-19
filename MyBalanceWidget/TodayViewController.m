@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dataValue;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
-@property (strong, nonatomic) DataLoaderBoost *dataLoader;
+@property (strong, nonatomic) DataLoader *dataLoader;
 
 @property (copy, nonatomic) void (^completionHandler)(NCUpdateResult updateResult);
 @end
@@ -72,33 +72,17 @@
 
 #pragma mark DataLoader
 - (void)dataDidChange:(DataLoader *)dataLoader withError:(NSError *)error {
-    NSString *label = @"No data";
-    NSString *value = @"";
-    float perecentage = 0;
-
     NSLog(@"dataDidChange");
 
-    self.dataLabel.text = @"Update error!";
-    self.dataValue.text = @"";
-    [self.progressView setProgress:0];
-
-    if (error) {
-        label = @"Update error!";
-        value = @"";
-        perecentage = 0;
-    } else if ([self.dataLoader.bonusWeekendData length]) {
-        label = @"Bonus Weekend Data";
-        value = self.dataLoader.bonusWeekendData;
-        perecentage = self.dataLoader.percentBonusWeekendData;
-    } else if ([self.dataLoader.includedData length]) {
-        label = @"Included Data";
-        value = self.dataLoader.includedData;
-        perecentage = self.dataLoader.percentIncluded;
+    if (error || self.dataLoader.importantData == nil) {
+        self.dataLabel.text = @"Update error!";
+        self.dataValue.text = @"";
+        [self.progressView setProgress:0];
+    } else {
+        self.dataLabel.text = self.dataLoader.importantData.label;
+        self.dataValue.text = self.dataLoader.importantData.value;
+        [self.progressView setProgress:self.dataLoader.importantData.gaugeValue];
     }
-
-    self.dataLabel.text = label;
-    self.dataValue.text = value;
-    [self.progressView setProgress:perecentage];
 
     if (self.completionHandler) {
         self.completionHandler(NCUpdateResultNewData);

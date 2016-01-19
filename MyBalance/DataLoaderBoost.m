@@ -22,6 +22,8 @@
     self = [super init];
 
     if (self) {
+        self.data = [[NSMutableArray alloc] initWithCapacity:4];
+        self.importantData = nil;
         self.urlSession = [NSURLSession sessionWithConfiguration:[self setupURLSessionConfiguration] delegate:self delegateQueue:nil];
     }
 
@@ -39,6 +41,8 @@
 
 - (void)refresh {
     NSLog(@"Start loading...");
+    [self.data removeAllObjects];
+    self.importantData = nil;
     NSURLSessionDownloadTask *getDataTask = [self.urlSession downloadTaskWithURL:[NSURL URLWithString:BOOST_CHECK_URL]];
     [getDataTask resume];
 }
@@ -71,43 +75,54 @@
 - (void)parseData:(NSString *)data {
     NSError *error = nil;
     NSArray *matches = nil;
+    NSString *pattern = nil;
     NSString *plan = nil;
     NSInteger maxIncludedData = 1000;
     NSInteger maxBonusWeekendData = 500;
     NSInteger maxExpiry = 30;
 
-    NSString *pattern = @"<div class=\"container-row\">.*<p>([A-Z]+)<sup>&reg;</sup></p>.*<p> Expires ([0-9/ :]+)</p>.*</div>";
+    // Match error
+    pattern = @"<p><h2>Error</h2></p><p>(.*)</p>.*<p>([^<]+)</p>";
+    matches = [self matchData:data withPattern:pattern error:&error];
+
+    if ([matches count] == 2) {
+        NSString *errorString = [NSString stringWithFormat:@"%@!\n\n%@", [matches objectAtIndex:0], [matches objectAtIndex:1]];
+        self.error = [NSError errorWithDomain:@"MyBalance" code:100 userInfo:@{NSLocalizedDescriptionKey:errorString}];
+        return;
+    }
+
+    // Match plan
+    pattern = @"<div class=\"container-row\">.*<p>([A-Z]+)<sup>&reg;</sup></p>.*<p> Expires ([0-9/ :]+)</p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
     if ([matches count] == 2) {
         plan = [matches objectAtIndex:0];
+        NSString *trademark = @"";
 
         if ([plan isEqualToString:@"UNLTD"]) {
             maxIncludedData = 3000;
             maxBonusWeekendData = 2000;
+            trademark = @"®";
         } else if ([plan isEqualToString:@"ULTRA"]) {
             maxIncludedData = 1000;
             maxBonusWeekendData = 500;
+            trademark = @"™";
         } else {
-            NSLog(@"Plan: %@ unknown!", plan);
+            NSString *errorString = [NSString stringWithFormat:@"Plan: %@ unknown!", plan];
+            self.error = [NSError errorWithDomain:@"MyBalance" code:100 userInfo:@{NSLocalizedDescriptionKey:errorString}];
+            return;
         }
 
-        NSString *expiry = [matches objectAtIndex:1];
-
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
-
-        NSDate *date = [format dateFromString:expiry];
-        NSTimeInterval timeFromNow = [date timeIntervalSinceNow];
-        float daysFromNow = (float)timeFromNow / 60 / 60 / 24;
-
-        self.expires = [NSString stringWithFormat:@"%.1fd / %dd", daysFromNow, (int)maxExpiry];
-        self.percentExpires = daysFromNow / maxExpiry;
+        GaugeData *gaugeData = [self parseExpiry:[matches objectAtIndex:1] maxExpiry:maxExpiry];
+        gaugeData.label = [NSString stringWithFormat:@"%@%@ - Expires", plan, trademark];
+        [self.data addObject:gaugeData];
+        self.importantData = gaugeData;
     } else {
-        self.expires = @"";
-        self.percentExpires = 0;
+        self.error = [NSError errorWithDomain:@"MyBalance" code:100 userInfo:@{NSLocalizedDescriptionKey:@"No plan found!"}];
+        return;
     }
 
+    // Match included data
     pattern = @"<div class=\"container-row\">.*<p>Inc Data</p>.*<p>([0-9.,]+)([A-Z]+) Expires ([0-9/ :]+)</p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
@@ -124,13 +139,19 @@
             valueFloat *= 1024;
         }
 
-        self.includedData = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxIncludedData/1000)];
-        self.percentIncluded = valueFloat / maxIncludedData;
-    } else {
-        self.includedData = @"";
-        self.percentIncluded = 0;
+        GaugeData *gaugeData = [[GaugeData alloc] init];
+        gaugeData.label = @"Included Data";
+        gaugeData.value = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxIncludedData/1000)];
+        gaugeData.gaugeValue = valueFloat / maxIncludedData;
+        [self.data addObject:gaugeData];
+        self.importantData = gaugeData;
+
+        gaugeData = [self parseExpiry:[matches objectAtIndex:2] maxExpiry:maxExpiry];
+        gaugeData.label = @"Included Data - Expires";
+        [self.data addObject:gaugeData];
     }
 
+    // Match bonus weekend data
     pattern = @"<div class=\"container-row\">.*<p>Bonus Weekend Data</p>.*<p>([0-9.,]+)([A-Z]+)  </p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
@@ -147,23 +168,30 @@
             valueFloat *= 1024;
         }
 
-        self.bonusWeekendData = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxBonusWeekendData/1000)];
-        self.percentBonusWeekendData = valueFloat / maxBonusWeekendData;
-    } else {
-        self.bonusWeekendData = @"";
-        self.percentBonusWeekendData = 0;
+        GaugeData *gaugeData = [[GaugeData alloc] init];
+        gaugeData.label = @"Bonus Weekend Data";
+        gaugeData.value = [NSString stringWithFormat:@"%@%@ / %dGB", valueString, unit, (int)(maxBonusWeekendData/1000)];
+        gaugeData.gaugeValue = valueFloat / maxBonusWeekendData;
+        [self.data addObject:gaugeData];
+        self.importantData = gaugeData;
     }
 
-    pattern = @"<p><h2>Error</h2></p><p>(.*)</p>.*<p>([^<]+)</p>";
-    matches = [self matchData:data withPattern:pattern error:&error];
+    self.error = error;
+}
 
-    if ([matches count] == 2) {
-        NSString *errorString = [NSString stringWithFormat:@"%@!\n\n%@", [matches objectAtIndex:0], [matches objectAtIndex:1]];
-        self.error = [NSError errorWithDomain:@"MyBalance" code:100 userInfo:@{NSLocalizedDescriptionKey:errorString}];
-    }
-    else {
-        self.error = error;
-    }
+- (GaugeData *)parseExpiry:(NSString *)expiry maxExpiry:(NSInteger)maxExpiry {
+    GaugeData *gaugeData = [[GaugeData alloc] init];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+
+    NSDate *date = [format dateFromString:expiry];
+    float timeFromNow = (float)[date timeIntervalSinceNow];
+    float daysFromNow = timeFromNow / 60 / 60 / 24;
+
+    gaugeData.value = [NSString stringWithFormat:@"%.1fd / %dd", daysFromNow, (int)maxExpiry];
+    gaugeData.gaugeValue = daysFromNow / maxExpiry;
+
+    return gaugeData;
 }
 
 - (NSArray *)matchData:(NSString *)data withPattern:(NSString *)pattern error:(NSError **)error {

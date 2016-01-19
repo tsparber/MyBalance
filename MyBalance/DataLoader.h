@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GaugeData.h"
 
 @class DataLoader;
 
@@ -16,6 +17,8 @@
 
 @interface DataLoader : NSObject
 @property (nonatomic, weak) id<DataLoaderDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray<GaugeData *> *data;
+@property (nonatomic, strong) GaugeData *importantData;
 
 - (void)refresh;
 @end

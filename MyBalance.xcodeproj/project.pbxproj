@@ -24,6 +24,8 @@
 		657791861C426B15006FD0E9 /* DataLoaderBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */; };
 		657791871C426B36006FD0E9 /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6577916B1C40EBFC006FD0E9 /* DataLoader.m */; };
 		658041951C47C1D40089A8CF /* GaugeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 658041941C47C1D40089A8CF /* GaugeTableViewCell.m */; };
+		65CA198C1C4DBD8D00A1FC72 /* GaugeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CA198B1C4DBD8D00A1FC72 /* GaugeData.m */; };
+		65CA198E1C4DC2B500A1FC72 /* GaugeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CA198B1C4DBD8D00A1FC72 /* GaugeData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		6577917E1C41E1ED006FD0E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658041931C47C1D40089A8CF /* GaugeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugeTableViewCell.h; sourceTree = "<group>"; };
 		658041941C47C1D40089A8CF /* GaugeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugeTableViewCell.m; sourceTree = "<group>"; };
+		65CA198A1C4DBD8D00A1FC72 /* GaugeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugeData.h; sourceTree = "<group>"; };
+		65CA198B1C4DBD8D00A1FC72 /* GaugeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugeData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				6577916B1C40EBFC006FD0E9 /* DataLoader.m */,
 				657791671C40EAE1006FD0E9 /* DataLoaderBoost.h */,
 				657791681C40EAE1006FD0E9 /* DataLoaderBoost.m */,
+				65CA198A1C4DBD8D00A1FC72 /* GaugeData.h */,
+				65CA198B1C4DBD8D00A1FC72 /* GaugeData.m */,
 				658041931C47C1D40089A8CF /* GaugeTableViewCell.h */,
 				658041941C47C1D40089A8CF /* GaugeTableViewCell.m */,
 				657791451C40DC87006FD0E9 /* Info.plist */,
@@ -328,6 +334,7 @@
 			files = (
 				657791691C40EAE1006FD0E9 /* DataLoaderBoost.m in Sources */,
 				6577913C1C40DC87006FD0E9 /* ViewController.m in Sources */,
+				65CA198C1C4DBD8D00A1FC72 /* GaugeData.m in Sources */,
 				657791391C40DC87006FD0E9 /* AppDelegate.m in Sources */,
 				657791361C40DC87006FD0E9 /* main.m in Sources */,
 				6577916C1C40EBFC006FD0E9 /* DataLoader.m in Sources */,
@@ -349,6 +356,7 @@
 			files = (
 				657791871C426B36006FD0E9 /* DataLoader.m in Sources */,
 				657791861C426B15006FD0E9 /* DataLoaderBoost.m in Sources */,
+				65CA198E1C4DC2B500A1FC72 /* GaugeData.m in Sources */,
 				6577917A1C41E1ED006FD0E9 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
-@property (strong, nonatomic) DataLoaderBoost *dataLoader;
+@property (strong, nonatomic) DataLoader *dataLoader;
 @end
 
 @implementation ViewController
@@ -73,34 +73,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return (NSInteger)[self.dataLoader.data count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GaugeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gaugeCell" forIndexPath:indexPath];
+    GaugeData *gaugeData = [self.dataLoader.data objectAtIndex:(NSUInteger)indexPath.row];
 
-    switch (indexPath.row) {
-        case 0:
-            cell.label.text = @"Included Data";
-            cell.value.text = self.dataLoader.includedData;
-            [cell.gauge setProgress:self.dataLoader.percentIncluded animated:YES];
-            break;
-
-        case 1:
-            cell.label.text = @"Bonus Weekend Data";
-            cell.value.text = self.dataLoader.bonusWeekendData;
-            [cell.gauge setProgress:self.dataLoader.percentBonusWeekendData animated:YES];
-            break;
-
-        case 2:
-            cell.label.text = @"Expires";
-            cell.value.text = self.dataLoader.expires;
-            [cell.gauge setProgress:self.dataLoader.percentExpires animated:YES];
-            break;
-
-        default:
-            break;
-    }
+    cell.label.text = gaugeData.label;
+    cell.value.text = gaugeData.value;
+    [cell.gauge setProgress:gaugeData.gaugeValue animated:YES];
 
     return cell;
 }
