@@ -156,7 +156,7 @@
     }
 
     // Match bonus weekend data
-    pattern = @"<div class=\"container-row\">.*<p>Bonus Weekend Data</p>.*<p>([0-9.,]+)([A-Z]+)  </p>.*</div>";
+    pattern = @"<div class=\"container-row\">.*<p>(?:Bonus |)Weekend Data</p>.*<p>([0-9.,]+)([A-Z]+)  </p>.*</div>";
     matches = [self matchData:data withPattern:pattern error:&error];
 
     if ([matches count] == 2) {
